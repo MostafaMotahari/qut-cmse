@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/mousiol/Projects/qut-cmse/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
