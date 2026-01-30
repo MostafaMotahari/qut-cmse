@@ -129,29 +129,29 @@ cmse/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/build
 .PHONY : cmse/fast
 
-src/index/btree/btree.o: src/index/btree/btree.cpp.o
-.PHONY : src/index/btree/btree.o
+src/index/btree/bplus_tree.o: src/index/btree/bplus_tree.cpp.o
+.PHONY : src/index/btree/bplus_tree.o
 
 # target to build an object file
-src/index/btree/btree.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/src/index/btree/btree.cpp.o
-.PHONY : src/index/btree/btree.cpp.o
+src/index/btree/bplus_tree.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.o
+.PHONY : src/index/btree/bplus_tree.cpp.o
 
-src/index/btree/btree.i: src/index/btree/btree.cpp.i
-.PHONY : src/index/btree/btree.i
+src/index/btree/bplus_tree.i: src/index/btree/bplus_tree.cpp.i
+.PHONY : src/index/btree/bplus_tree.i
 
 # target to preprocess a source file
-src/index/btree/btree.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/src/index/btree/btree.cpp.i
-.PHONY : src/index/btree/btree.cpp.i
+src/index/btree/bplus_tree.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.i
+.PHONY : src/index/btree/bplus_tree.cpp.i
 
-src/index/btree/btree.s: src/index/btree/btree.cpp.s
-.PHONY : src/index/btree/btree.s
+src/index/btree/bplus_tree.s: src/index/btree/bplus_tree.cpp.s
+.PHONY : src/index/btree/bplus_tree.s
 
 # target to generate assembly for a file
-src/index/btree/btree.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/src/index/btree/btree.cpp.s
-.PHONY : src/index/btree/btree.cpp.s
+src/index/btree/bplus_tree.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.s
+.PHONY : src/index/btree/bplus_tree.cpp.s
 
 src/index/hash/hash_index.o: src/index/hash/hash_index.cpp.o
 .PHONY : src/index/hash/hash_index.o
@@ -176,6 +176,30 @@ src/index/hash/hash_index.s: src/index/hash/hash_index.cpp.s
 src/index/hash/hash_index.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/src/index/hash/hash_index.cpp.s
 .PHONY : src/index/hash/hash_index.cpp.s
+
+src/index/index_catalog.o: src/index/index_catalog.cpp.o
+.PHONY : src/index/index_catalog.o
+
+# target to build an object file
+src/index/index_catalog.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/src/index/index_catalog.cpp.o
+.PHONY : src/index/index_catalog.cpp.o
+
+src/index/index_catalog.i: src/index/index_catalog.cpp.i
+.PHONY : src/index/index_catalog.i
+
+# target to preprocess a source file
+src/index/index_catalog.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/src/index/index_catalog.cpp.i
+.PHONY : src/index/index_catalog.cpp.i
+
+src/index/index_catalog.s: src/index/index_catalog.cpp.s
+.PHONY : src/index/index_catalog.s
+
+# target to generate assembly for a file
+src/index/index_catalog.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/src/index/index_catalog.cpp.s
+.PHONY : src/index/index_catalog.cpp.s
 
 src/index/tire/trie.o: src/index/tire/trie.cpp.o
 .PHONY : src/index/tire/trie.o
@@ -330,12 +354,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... cmse"
-	@echo "... src/index/btree/btree.o"
-	@echo "... src/index/btree/btree.i"
-	@echo "... src/index/btree/btree.s"
+	@echo "... src/index/btree/bplus_tree.o"
+	@echo "... src/index/btree/bplus_tree.i"
+	@echo "... src/index/btree/bplus_tree.s"
 	@echo "... src/index/hash/hash_index.o"
 	@echo "... src/index/hash/hash_index.i"
 	@echo "... src/index/hash/hash_index.s"
+	@echo "... src/index/index_catalog.o"
+	@echo "... src/index/index_catalog.i"
+	@echo "... src/index/index_catalog.s"
 	@echo "... src/index/tire/trie.o"
 	@echo "... src/index/tire/trie.i"
 	@echo "... src/index/tire/trie.s"

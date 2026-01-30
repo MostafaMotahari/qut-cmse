@@ -1,74 +1,90 @@
 #include <iostream>
-#include <cstring>
-#include "../include/storage/buffer_pool_manager.h"
+#include <vector>
+#include <cstdlib>
+#include <ctime>
 
-using namespace std;
+#include "../include/storage/buffer_pool_manager.h"
+#include "../include/index/index_catalog.h"
+#include "../include/index/btree/bplus_tree.h"
+
 using namespace cmse;
 
 int main() {
-    // IMPORTANT: Before running the program:
-    // 1. Create the directory: mkdir -p data/disk
-    // 2. Delete any old disk file: rm data/disk/cmse.disk   (or delete manually)
-    // This ensures a clean start for the test.
 
-    cout << "=== Starting BufferPoolManager Test ===" << endl;
+    BufferPoolManager bpm(50); // small pool to force eviction
 
-    {
-        // Phase 1: Create 6 pages with a small pool (3 frames) → forces evictions
-        BufferPoolManager bpm(3);
+    // Fetch metadata page (page 0)
+    Page *meta_page = bpm.FetchPage(0);
 
-        PageID pids[6];
+    // First-time initialization
+    auto *meta =
+        reinterpret_cast<IndexMetaPage *>(meta_page->GetData());
+    meta->index_count = 0;
 
-        for (int i = 0; i < 6; ++i) {
-            Page* page = bpm.NewPage(&pids[i]);
-            if (page == nullptr) {
-                cout << "ERROR: NewPage failed for page " << i << " (pool full and no evictable frame?)" << endl;
-                return 1;
-            }
+    IndexCatalog catalog(meta_page);
 
-            // Write identifiable data (short string, rest of page is zeroed)
-            char* data = page->GetData();
-            sprintf(data, "Test data for page %d - CMSE", i);
+    // Create root leaf
+    PageID root_page_id;
+    Page *root_page = bpm.NewPage(&root_page_id);
 
-            cout << "Created page ID " << pids[i] << " and wrote data" << endl;
+    auto *root_leaf =
+        reinterpret_cast<BPlusTreeLeafPage *>(root_page->GetData());
 
-            // Unpin + mark dirty so it can be evicted and written back
-            bpm.UnpinPage(pids[i], true);
-        }
+    root_leaf->header.is_leaf = true;
+    root_leaf->header.key_count = 0;
+    root_leaf->header.parent_page_id = INVALID_PAGE_ID;
+    root_leaf->next_leaf_page_id = INVALID_PAGE_ID;
 
-        cout << "Finished creating pages. Evictions should have occurred (oldest pages written to disk)." << endl;
-    }  // <-- bpm destroyed here → FlushAllPages() writes remaining dirty pages
+    // Register index (index_id = 1)
+    const IndexID TEST_INDEX_ID = 1;
+    catalog.SetRoot(TEST_INDEX_ID, root_page_id);
 
-    cout << "First BufferPoolManager destroyed. All dirty pages flushed to disk." << endl;
+    bpm.UnpinPage(root_page_id, true);
+    bpm.UnpinPage(0, true); // metadata dirty
 
-    {
-        // Phase 2: New BufferPoolManager → fetch the same pages from disk and verify data
-        BufferPoolManager bpm(3);
+    BPlusTree tree(root_page_id, &bpm);
 
-        for (int i = 0; i < 6; ++i) {
-            Page* page = bpm.FetchPage(i);
-            if (page == nullptr) {
-                cout << "ERROR: FetchPage failed for page " << i << endl;
-                return 1;
-            }
+    std::cout << "Inserting keys...\n";
 
-            const char* data = page->GetData();
-            char expected[100];
-            sprintf(expected, "Test data for page %d - CMSE", i);
+    const int N = 10000;
+    std::srand(42);
 
-            if (strcmp(data, expected) != 0) {
-                cout << "ERROR: Data mismatch on page " << i << "!" << endl;
-                cout << "   Expected: " << expected << endl;
-                cout << "   Got     : " << data << endl;
-                return 1;
-            }
+    for (int i = 0; i < N; i++) {
+        KeyType key = std::rand() % 5000;  // duplicates allowed
+        RecordRef ref{static_cast<uint64_t>(i * 100)};
 
-            cout << "SUCCESS: Verified page " << i << " data is correct" << endl;
-
-            bpm.UnpinPage(i, false);  // No modify this time
-        }
+        tree.Insert(key, ref);
     }
 
-    cout << "=== All tests passed! BufferPoolManager works correctly ===" << endl;
+    std::cout << "Insertion done.\n";
+
+    std::cout << "\nTesting exact search...\n";
+
+    for (int k = 0; k < 10; k++) {
+        KeyType test_key = k * 100;
+
+        std::vector<RecordRef> results;
+        tree.Search(test_key, results);
+
+        std::cout << "Key " << test_key
+                  << " → " << results.size()
+                  << " records\n";
+    }
+
+    std::cout << "\nTesting range search...\n";
+
+    KeyType low = 1000;
+    KeyType high = 1100;
+
+    std::vector<RecordRef> range_results;
+    tree.RangeSearch(low, high, range_results);
+
+    std::cout << "Range [" << low << ", " << high << "] → "
+              << range_results.size() << " records\n";
+
+    bpm.FlushAllPages();
+
+    std::cout << "\nTest finished successfully.\n";
     return 0;
+
 }

@@ -1,9 +1,11 @@
 file(REMOVE_RECURSE
   "CMakeFiles/cmse.dir/link.d"
-  "CMakeFiles/cmse.dir/src/index/btree/btree.cpp.o"
-  "CMakeFiles/cmse.dir/src/index/btree/btree.cpp.o.d"
+  "CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.o"
+  "CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.o.d"
   "CMakeFiles/cmse.dir/src/index/hash/hash_index.cpp.o"
   "CMakeFiles/cmse.dir/src/index/hash/hash_index.cpp.o.d"
+  "CMakeFiles/cmse.dir/src/index/index_catalog.cpp.o"
+  "CMakeFiles/cmse.dir/src/index/index_catalog.cpp.o.d"
   "CMakeFiles/cmse.dir/src/index/tire/trie.cpp.o"
   "CMakeFiles/cmse.dir/src/index/tire/trie.cpp.o.d"
   "CMakeFiles/cmse.dir/src/main.cpp.o"

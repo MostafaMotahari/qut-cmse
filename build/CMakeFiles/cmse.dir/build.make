@@ -72,19 +72,19 @@ include CMakeFiles/cmse.dir/flags.make
 CMakeFiles/cmse.dir/codegen:
 .PHONY : CMakeFiles/cmse.dir/codegen
 
-CMakeFiles/cmse.dir/src/index/btree/btree.cpp.o: CMakeFiles/cmse.dir/flags.make
-CMakeFiles/cmse.dir/src/index/btree/btree.cpp.o: /home/mousiol/Projects/qut-cmse/src/index/btree/btree.cpp
-CMakeFiles/cmse.dir/src/index/btree/btree.cpp.o: CMakeFiles/cmse.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cmse.dir/src/index/btree/btree.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmse.dir/src/index/btree/btree.cpp.o -MF CMakeFiles/cmse.dir/src/index/btree/btree.cpp.o.d -o CMakeFiles/cmse.dir/src/index/btree/btree.cpp.o -c /home/mousiol/Projects/qut-cmse/src/index/btree/btree.cpp
+CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.o: CMakeFiles/cmse.dir/flags.make
+CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.o: /home/mousiol/Projects/qut-cmse/src/index/btree/bplus_tree.cpp
+CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.o: CMakeFiles/cmse.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.o -MF CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.o.d -o CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.o -c /home/mousiol/Projects/qut-cmse/src/index/btree/bplus_tree.cpp
 
-CMakeFiles/cmse.dir/src/index/btree/btree.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cmse.dir/src/index/btree/btree.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mousiol/Projects/qut-cmse/src/index/btree/btree.cpp > CMakeFiles/cmse.dir/src/index/btree/btree.cpp.i
+CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mousiol/Projects/qut-cmse/src/index/btree/bplus_tree.cpp > CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.i
 
-CMakeFiles/cmse.dir/src/index/btree/btree.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cmse.dir/src/index/btree/btree.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mousiol/Projects/qut-cmse/src/index/btree/btree.cpp -o CMakeFiles/cmse.dir/src/index/btree/btree.cpp.s
+CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mousiol/Projects/qut-cmse/src/index/btree/bplus_tree.cpp -o CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.s
 
 CMakeFiles/cmse.dir/src/index/hash/hash_index.cpp.o: CMakeFiles/cmse.dir/flags.make
 CMakeFiles/cmse.dir/src/index/hash/hash_index.cpp.o: /home/mousiol/Projects/qut-cmse/src/index/hash/hash_index.cpp
@@ -100,10 +100,24 @@ CMakeFiles/cmse.dir/src/index/hash/hash_index.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cmse.dir/src/index/hash/hash_index.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mousiol/Projects/qut-cmse/src/index/hash/hash_index.cpp -o CMakeFiles/cmse.dir/src/index/hash/hash_index.cpp.s
 
+CMakeFiles/cmse.dir/src/index/index_catalog.cpp.o: CMakeFiles/cmse.dir/flags.make
+CMakeFiles/cmse.dir/src/index/index_catalog.cpp.o: /home/mousiol/Projects/qut-cmse/src/index/index_catalog.cpp
+CMakeFiles/cmse.dir/src/index/index_catalog.cpp.o: CMakeFiles/cmse.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/cmse.dir/src/index/index_catalog.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmse.dir/src/index/index_catalog.cpp.o -MF CMakeFiles/cmse.dir/src/index/index_catalog.cpp.o.d -o CMakeFiles/cmse.dir/src/index/index_catalog.cpp.o -c /home/mousiol/Projects/qut-cmse/src/index/index_catalog.cpp
+
+CMakeFiles/cmse.dir/src/index/index_catalog.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cmse.dir/src/index/index_catalog.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mousiol/Projects/qut-cmse/src/index/index_catalog.cpp > CMakeFiles/cmse.dir/src/index/index_catalog.cpp.i
+
+CMakeFiles/cmse.dir/src/index/index_catalog.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cmse.dir/src/index/index_catalog.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mousiol/Projects/qut-cmse/src/index/index_catalog.cpp -o CMakeFiles/cmse.dir/src/index/index_catalog.cpp.s
+
 CMakeFiles/cmse.dir/src/index/tire/trie.cpp.o: CMakeFiles/cmse.dir/flags.make
 CMakeFiles/cmse.dir/src/index/tire/trie.cpp.o: /home/mousiol/Projects/qut-cmse/src/index/tire/trie.cpp
 CMakeFiles/cmse.dir/src/index/tire/trie.cpp.o: CMakeFiles/cmse.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/cmse.dir/src/index/tire/trie.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/cmse.dir/src/index/tire/trie.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmse.dir/src/index/tire/trie.cpp.o -MF CMakeFiles/cmse.dir/src/index/tire/trie.cpp.o.d -o CMakeFiles/cmse.dir/src/index/tire/trie.cpp.o -c /home/mousiol/Projects/qut-cmse/src/index/tire/trie.cpp
 
 CMakeFiles/cmse.dir/src/index/tire/trie.cpp.i: cmake_force
@@ -117,7 +131,7 @@ CMakeFiles/cmse.dir/src/index/tire/trie.cpp.s: cmake_force
 CMakeFiles/cmse.dir/src/main.cpp.o: CMakeFiles/cmse.dir/flags.make
 CMakeFiles/cmse.dir/src/main.cpp.o: /home/mousiol/Projects/qut-cmse/src/main.cpp
 CMakeFiles/cmse.dir/src/main.cpp.o: CMakeFiles/cmse.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/cmse.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/cmse.dir/src/main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmse.dir/src/main.cpp.o -MF CMakeFiles/cmse.dir/src/main.cpp.o.d -o CMakeFiles/cmse.dir/src/main.cpp.o -c /home/mousiol/Projects/qut-cmse/src/main.cpp
 
 CMakeFiles/cmse.dir/src/main.cpp.i: cmake_force
@@ -131,7 +145,7 @@ CMakeFiles/cmse.dir/src/main.cpp.s: cmake_force
 CMakeFiles/cmse.dir/src/query/query_executor.cpp.o: CMakeFiles/cmse.dir/flags.make
 CMakeFiles/cmse.dir/src/query/query_executor.cpp.o: /home/mousiol/Projects/qut-cmse/src/query/query_executor.cpp
 CMakeFiles/cmse.dir/src/query/query_executor.cpp.o: CMakeFiles/cmse.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/cmse.dir/src/query/query_executor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/cmse.dir/src/query/query_executor.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmse.dir/src/query/query_executor.cpp.o -MF CMakeFiles/cmse.dir/src/query/query_executor.cpp.o.d -o CMakeFiles/cmse.dir/src/query/query_executor.cpp.o -c /home/mousiol/Projects/qut-cmse/src/query/query_executor.cpp
 
 CMakeFiles/cmse.dir/src/query/query_executor.cpp.i: cmake_force
@@ -145,7 +159,7 @@ CMakeFiles/cmse.dir/src/query/query_executor.cpp.s: cmake_force
 CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o: CMakeFiles/cmse.dir/flags.make
 CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o: /home/mousiol/Projects/qut-cmse/src/storage/buffer_pool_manager.cpp
 CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o: CMakeFiles/cmse.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o -MF CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o.d -o CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o -c /home/mousiol/Projects/qut-cmse/src/storage/buffer_pool_manager.cpp
 
 CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.i: cmake_force
@@ -159,7 +173,7 @@ CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.s: cmake_force
 CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o: CMakeFiles/cmse.dir/flags.make
 CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o: /home/mousiol/Projects/qut-cmse/src/storage/disk_manager.cpp
 CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o: CMakeFiles/cmse.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o -MF CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o.d -o CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o -c /home/mousiol/Projects/qut-cmse/src/storage/disk_manager.cpp
 
 CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.i: cmake_force
@@ -173,7 +187,7 @@ CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.s: cmake_force
 CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o: CMakeFiles/cmse.dir/flags.make
 CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o: /home/mousiol/Projects/qut-cmse/src/storage/lru_replacer.cpp
 CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o: CMakeFiles/cmse.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o -MF CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o.d -o CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o -c /home/mousiol/Projects/qut-cmse/src/storage/lru_replacer.cpp
 
 CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.i: cmake_force
@@ -186,8 +200,9 @@ CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.s: cmake_force
 
 # Object files for target cmse
 cmse_OBJECTS = \
-"CMakeFiles/cmse.dir/src/index/btree/btree.cpp.o" \
+"CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.o" \
 "CMakeFiles/cmse.dir/src/index/hash/hash_index.cpp.o" \
+"CMakeFiles/cmse.dir/src/index/index_catalog.cpp.o" \
 "CMakeFiles/cmse.dir/src/index/tire/trie.cpp.o" \
 "CMakeFiles/cmse.dir/src/main.cpp.o" \
 "CMakeFiles/cmse.dir/src/query/query_executor.cpp.o" \
@@ -198,8 +213,9 @@ cmse_OBJECTS = \
 # External object files for target cmse
 cmse_EXTERNAL_OBJECTS =
 
-cmse: CMakeFiles/cmse.dir/src/index/btree/btree.cpp.o
+cmse: CMakeFiles/cmse.dir/src/index/btree/bplus_tree.cpp.o
 cmse: CMakeFiles/cmse.dir/src/index/hash/hash_index.cpp.o
+cmse: CMakeFiles/cmse.dir/src/index/index_catalog.cpp.o
 cmse: CMakeFiles/cmse.dir/src/index/tire/trie.cpp.o
 cmse: CMakeFiles/cmse.dir/src/main.cpp.o
 cmse: CMakeFiles/cmse.dir/src/query/query_executor.cpp.o
@@ -209,7 +225,7 @@ cmse: CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o
 cmse: CMakeFiles/cmse.dir/build.make
 cmse: CMakeFiles/cmse.dir/compiler_depend.ts
 cmse: CMakeFiles/cmse.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable cmse"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable cmse"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cmse.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
