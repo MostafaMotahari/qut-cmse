@@ -36,7 +36,7 @@ struct BPlusTreeInternalPage {
 
 class BPlusTree {
 public:
-    BPlusTree(PageID root_page_id, BufferPoolManager *bpm);
+    BPlusTree(PageID root_page_id, IndexID index_id, BufferPoolManager *bpm);
 
     // exact match search
     void Search(KeyType key, std::vector<RecordRef> &result);
@@ -46,6 +46,7 @@ public:
 
     // insert key
     void Insert(KeyType key, RecordRef value);
+    PageID root_page_id_;
 
 private:
     PageID FindLeafPage(KeyType key);
@@ -56,8 +57,8 @@ private:
     void InsertIntoParent(PageID left, KeyType key, PageID right);
     void InsertIntoInternal(PageID parent_id, PageID left_child, KeyType key, PageID right_child);
 
-    PageID root_page_id_;
     BufferPoolManager *bpm_;
+    IndexID index_id_;
 };
 
 } // namespace cmse

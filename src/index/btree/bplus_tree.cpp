@@ -1,10 +1,11 @@
+#include "../../../include/index/index_meta_page.h"
 #include "../../../include/index/btree/bplus_tree.h"
 #include "../../../include/storage/buffer_pool_manager.h"
 
 namespace cmse {
 
-BPlusTree::BPlusTree(PageID root_page_id, BufferPoolManager *bpm)
-    : root_page_id_(root_page_id), bpm_(bpm) {}
+BPlusTree::BPlusTree(PageID root_page_id, IndexID index_id, BufferPoolManager *bpm)
+    : root_page_id_(root_page_id), bpm_(bpm), index_id_(index_id) {}
 
 PageID BPlusTree::FindLeafPage(KeyType key) {
     PageID current_page_id = root_page_id_;
@@ -154,9 +155,7 @@ PageID BPlusTree::SplitLeaf(PageID leaf_page_id) {
     uint32_t split_index = old_leaf->header.key_count / 2;
 
     // 3️⃣ Move second half to new leaf
-    for (uint32_t i = split_index;
-         i < old_leaf->header.key_count;
-         i++) {
+    for (uint32_t i = split_index; i < old_leaf->header.key_count; i++) {
 
         new_leaf->keys[new_leaf->header.key_count] =
             old_leaf->keys[i];
@@ -215,6 +214,20 @@ void BPlusTree::InsertIntoParent(PageID left, KeyType key, PageID right) {
         right_header->parent_page_id = new_root_id;
 
         root_page_id_ = new_root_id;
+
+        // Persist new root in metadata
+        Page *meta_page = bpm_->FetchPage(0);
+        IndexMetaPage *meta =
+            reinterpret_cast<IndexMetaPage *>(meta_page->GetData());
+
+        for (uint32_t i = 0; i < meta->index_count; i++) {
+            if (meta->entries[i].index_id == index_id_) {
+                meta->entries[i].root_page_id = new_root_id;
+                break;
+            }
+        }
+
+        bpm_->UnpinPage(0, true);
 
         bpm_->UnpinPage(right, true);
         bpm_->UnpinPage(new_root_id, true);

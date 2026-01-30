@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <cstdlib>
-#include <ctime>
 
 #include "../include/storage/buffer_pool_manager.h"
 #include "../include/index/index_catalog.h"
@@ -14,49 +13,61 @@ int main() {
     BufferPoolManager bpm(50); // small pool to force eviction
 
     // Fetch metadata page (page 0)
+    PageID meta_page_id;
     Page *meta_page = bpm.FetchPage(0);
 
     // First-time initialization
     auto *meta =
         reinterpret_cast<IndexMetaPage *>(meta_page->GetData());
-    meta->index_count = 0;
+    // meta->index_count = 0;
 
     IndexCatalog catalog(meta_page);
 
     // Create root leaf
-    PageID root_page_id;
-    Page *root_page = bpm.NewPage(&root_page_id);
+    // PageID root_page_id;
+    // Page *root_page = bpm.NewPage(&root_page_id);
 
-    auto *root_leaf =
-        reinterpret_cast<BPlusTreeLeafPage *>(root_page->GetData());
+    // auto *root_leaf =
+    //     reinterpret_cast<BPlusTreeLeafPage *>(root_page->GetData());
 
-    root_leaf->header.is_leaf = true;
-    root_leaf->header.key_count = 0;
-    root_leaf->header.parent_page_id = INVALID_PAGE_ID;
-    root_leaf->next_leaf_page_id = INVALID_PAGE_ID;
+    // root_leaf->header.is_leaf = true;
+    // root_leaf->header.key_count = 0;
+    // root_leaf->header.parent_page_id = INVALID_PAGE_ID;
+    // root_leaf->next_leaf_page_id = INVALID_PAGE_ID;
 
-    // Register index (index_id = 1)
+    // // Register index (index_id = 1)
+    // const IndexID TEST_INDEX_ID = 1;
+    // catalog.SetRoot(TEST_INDEX_ID, root_page_id);
+
+    // bpm.UnpinPage(root_page_id, true);
+    // bpm.UnpinPage(meta_page_id, true); // metadata dirty
+
     const IndexID TEST_INDEX_ID = 1;
-    catalog.SetRoot(TEST_INDEX_ID, root_page_id);
+    PageID root_page_id = catalog.GetRoot(TEST_INDEX_ID);
 
-    bpm.UnpinPage(root_page_id, true);
-    bpm.UnpinPage(0, true); // metadata dirty
-
-    BPlusTree tree(root_page_id, &bpm);
-
-    std::cout << "Inserting keys...\n";
-
-    const int N = 10000;
-    std::srand(42);
-
-    for (int i = 0; i < N; i++) {
-        KeyType key = std::rand() % 5000;  // duplicates allowed
-        RecordRef ref{static_cast<uint64_t>(i * 100)};
-
-        tree.Insert(key, ref);
+    if (root_page_id == INVALID_PAGE_ID) {
+        std::cerr << "ERROR: index not found\n";
+        return 1;
     }
 
-    std::cout << "Insertion done.\n";
+    BPlusTree tree(root_page_id, TEST_INDEX_ID, &bpm);
+
+    // std::cout << "Inserting keys...\n";
+
+    // const int N = 10000;
+    // std::srand(42);
+
+    // for (int i = 0; i < N; i++) {
+    //     KeyType key = std::rand() % 5000;  // duplicates allowed
+    //     RecordRef ref{static_cast<uint64_t>(i * 100)};
+
+    //     tree.Insert(key, ref);
+    // }
+
+    // std::cout << "Insertion done.\n";
+
+    std::cout<<tree.root_page_id_<<std::endl;
+    std::cout<<root_page_id<<std::endl;
 
     std::cout << "\nTesting exact search...\n";
 
