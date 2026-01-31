@@ -29,10 +29,17 @@ struct BPlusTreeLeafPage {
 
 struct BPlusTreeInternalPage {
     BPlusTreePageHeader header;
+
+    // ===== Phase 3 statistics =====
+    KeyType min_key;
+    KeyType max_key;
+    uint32_t total_keys;
+    float density;
+
+    // ===== Core B+Tree data =====
     PageID children[BPLUS_TREE_INTERNAL_MAX_KEYS + 1];
     KeyType keys[BPLUS_TREE_INTERNAL_MAX_KEYS];
 };
-
 
 class BPlusTree {
 public:
@@ -56,6 +63,7 @@ private:
     void InsertIntoLeaf(BPlusTreeLeafPage *leaf, KeyType key, const RecordRef &value);
     void InsertIntoParent(PageID left, KeyType key, PageID right);
     void InsertIntoInternal(PageID parent_id, PageID left_child, KeyType key, PageID right_child);
+    void UpdateInternalStats(BPlusTreeInternalPage *node, KeyType key);
 
     BufferPoolManager *bpm_;
     IndexID index_id_;

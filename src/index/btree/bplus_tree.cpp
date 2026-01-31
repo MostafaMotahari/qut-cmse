@@ -111,7 +111,23 @@ void BPlusTree::Insert(KeyType key, RecordRef value) {
         // promoted key handled inside split
     }
 
+    PageID parent_id = leaf->header.parent_page_id;
     bpm_->UnpinPage(leaf_page_id, true);
+
+    while (parent_id != INVALID_PAGE_ID) {
+        Page *p = bpm_->FetchPage(parent_id);
+        auto *internal =
+            reinterpret_cast<BPlusTreeInternalPage *>(p->GetData());
+
+        UpdateInternalStats(internal, key);
+
+        parent_id = internal->header.parent_page_id;
+        bpm_->UnpinPage(p->GetPageID(), true);
+    }
+
+    if (leaf->header.key_count > BPLUS_TREE_LEAF_MAX_KEYS) {
+        SplitLeaf(leaf_page_id);
+    }
 }
 
 void BPlusTree::InsertIntoLeaf(BPlusTreeLeafPage *leaf, KeyType key, const RecordRef &value) {
@@ -205,6 +221,12 @@ void BPlusTree::InsertIntoParent(PageID left, KeyType key, PageID right) {
         root->children[1] = right;
         root->keys[0] = key;
 
+        // Update statistics
+        root->min_key = key;
+        root->max_key = key;
+        root->total_keys = 1;
+        root->density = 1.0f;
+
         // update children parent pointers
         left_header->parent_page_id = new_root_id;
 
@@ -266,6 +288,9 @@ void BPlusTree::InsertIntoInternal(PageID parent_id, PageID left_child, KeyType 
     internal->children[idx + 1] = right_child;
     internal->header.key_count++;
 
+    // Update statistics
+    UpdateInternalStats(internal, key);
+
     // update right child parent pointer
     Page *right_page = bpm_->FetchPage(right_child);
     auto *right_header =
@@ -296,6 +321,8 @@ PageID BPlusTree::SplitInternal(PageID internal_page_id) {
     new_internal->header.is_leaf = false;
     new_internal->header.parent_page_id = old->header.parent_page_id;
     new_internal->header.key_count = 0;
+    new_internal->total_keys = 0;
+    new_internal->density = 0.0f;
 
     uint32_t total_keys = old->header.key_count;
     uint32_t mid = total_keys / 2;
@@ -304,10 +331,13 @@ PageID BPlusTree::SplitInternal(PageID internal_page_id) {
 
     // move keys & children AFTER mid to new node
     for (uint32_t i = mid + 1; i < total_keys; i++) {
-        new_internal->keys[new_internal->header.key_count] = old->keys[i];
-        new_internal->children[new_internal->header.key_count] =
-            old->children[i];
+        KeyType k = old->keys[i];
+
+        new_internal->keys[new_internal->header.key_count] = k;
+        new_internal->children[new_internal->header.key_count] = old->children[i];
         new_internal->header.key_count++;
+
+        UpdateInternalStats(new_internal, k);
     }
 
     // last child
@@ -324,6 +354,16 @@ PageID BPlusTree::SplitInternal(PageID internal_page_id) {
     }
 
     old->header.key_count = mid;
+    old->total_keys = 0;
+
+    if (old->header.key_count > 0) {
+        old->min_key = old->keys[0];
+        old->max_key = old->keys[old->header.key_count - 1];
+        old->total_keys = old->header.key_count;
+        old->density = static_cast<float>(old->total_keys) / static_cast<float>(old->max_key - old->min_key + 1);
+    } else {
+        old->density = 0.0f;
+    }
 
     bpm_->UnpinPage(internal_page_id, true);
     bpm_->UnpinPage(new_page_id, true);
@@ -332,6 +372,25 @@ PageID BPlusTree::SplitInternal(PageID internal_page_id) {
     InsertIntoParent(internal_page_id, promote_key, new_page_id);
 
     return new_page_id;
+}
+
+void BPlusTree::UpdateInternalStats(BPlusTreeInternalPage *node, KeyType key) {
+    if (node->total_keys == 0) {
+        node->min_key = key;
+        node->max_key = key;
+        node->total_keys = 1;
+        node->density = 1.0f;
+        return;
+    }
+
+    if (key < node->min_key) node->min_key = key;
+    if (key > node->max_key) node->max_key = key;
+
+    node->total_keys++;
+
+    node->density =
+        static_cast<float>(node->total_keys) /
+        static_cast<float>(node->max_key - node->min_key + 1);
 }
 
 }
