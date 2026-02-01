@@ -110,10 +110,10 @@ int main() {
         KeyType key = std::rand() % 5000;  // duplicates allowed
         RecordRef ref{static_cast<uint64_t>(i * 100)};
 
-        if (catalog.GetRoot(TEST_INDEX_ID) > 3) {
-            std::cout<<i<<std::endl;
-            break;
-        }
+        // if (catalog.GetRoot(TEST_INDEX_ID) > 3) {
+        //     std::cout<<i<<std::endl;
+        //     break;
+        // }
         // std::cout<<catalog.GetRoot(TEST_INDEX_ID)<<std::endl;
         tree.Insert(key, ref);
     }
@@ -122,8 +122,16 @@ int main() {
 
     std::cout << "Some examples of statistics done.\n";
 
-    PageID dynamic_root_page_id = 3;
-    Page *page_root = bpm.FetchPage(dynamic_root_page_id);
+
+    Page *meta_page2 = bpm.FetchPage(meta_page_id);
+
+    std::cout<<"Allocating meta page "<<meta_page_id<<std::endl;
+
+    // First-time initialization
+
+    IndexCatalog catalog_bav(meta_page2);
+
+    Page *page_root = bpm.FetchPage(catalog_bav.GetRoot(TEST_INDEX_ID));
     auto *header =
         reinterpret_cast<BPlusTreePageHeader *>(page_root->GetData());
 
@@ -135,7 +143,7 @@ int main() {
           << root_internal->min_key
           << " max=" << root_internal->max_key
           << " total=" << root_internal->total_keys
-          << " page_id=" << dynamic_root_page_id
+          << " page_id=" << catalog_bav.GetRoot(TEST_INDEX_ID)
           << " density=" << root_internal->density
           << "\n";
     } else {
@@ -146,25 +154,30 @@ int main() {
 
     for (int k = 0; k < 10; k++) {
         KeyType test_key = k * 100;
+        uint32_t fetch_count = 0;
 
         std::vector<RecordRef> results;
-        tree.Search(test_key, results);
+        tree.Search(test_key, results, fetch_count);
 
         std::cout << "Key " << test_key
                   << " → " << results.size()
-                  << " records\n";
+                  << " records"
+                  << " | " << fetch_count
+                  << " page fetches\n";
     }
 
     std::cout << "\nTesting range search...\n";
 
     KeyType low = 1000;
     KeyType high = 1100;
+    uint32_t fetch_count = 0;
 
     std::vector<RecordRef> range_results;
-    tree.RangeSearch(low, high, range_results);
+    tree.RangeSearch(low, high, range_results, fetch_count);
 
     std::cout << "Range [" << low << ", " << high << "] → "
-              << range_results.size() << " records\n";
+              << range_results.size() << " records | "
+              << fetch_count << " page fetches\n";
 
     bpm.FlushAllPages();
 

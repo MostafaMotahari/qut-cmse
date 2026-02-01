@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "../../../include/index/index_meta_page.h"
 #include "../../../include/index/btree/bplus_tree.h"
 #include "../../../include/storage/buffer_pool_manager.h"
@@ -7,7 +9,44 @@ namespace cmse {
 BPlusTree::BPlusTree(PageID root_page_id, IndexID index_id, BufferPoolManager *bpm)
     : root_page_id_(root_page_id), bpm_(bpm), index_id_(index_id) {}
 
-PageID BPlusTree::FindLeafPage(KeyType key) {
+PageID BPlusTree::FindLeafPageForSearch(KeyType key, uint32_t &fetch_count) {
+    PageID current_page_id = root_page_id_;
+
+    while (true) {
+        fetch_count++;
+        Page *page = bpm_->FetchPage(current_page_id);
+        auto *header =
+            reinterpret_cast<BPlusTreePageHeader *>(page->GetData());
+
+        // reached leaf
+        if (header->is_leaf) {
+            bpm_->UnpinPage(current_page_id, false);
+            return current_page_id;
+        }
+
+        // internal page
+        auto *internal =
+            reinterpret_cast<BPlusTreeInternalPage *>(page->GetData());
+
+        // Phase 3 pruning
+        if (key < internal->min_key || key > internal->max_key) {
+            bpm_->UnpinPage(current_page_id, false);
+            return INVALID_PAGE_ID;
+        }
+
+        uint32_t i = 0;
+        while (i < internal->header.key_count && key >= internal->keys[i]) {
+            i++;
+        }
+
+        PageID next_page_id = internal->children[i];
+
+        bpm_->UnpinPage(current_page_id, false);
+        current_page_id = next_page_id;
+    }
+}
+
+PageID BPlusTree::FindLeafPageForInsert(KeyType key) {
     PageID current_page_id = root_page_id_;
 
     while (true) {
@@ -26,8 +65,7 @@ PageID BPlusTree::FindLeafPage(KeyType key) {
             reinterpret_cast<BPlusTreeInternalPage *>(page->GetData());
 
         uint32_t i = 0;
-        while (i < internal->header.key_count &&
-               key >= internal->keys[i]) {
+        while (i < internal->header.key_count && key >= internal->keys[i]) {
             i++;
         }
 
@@ -38,10 +76,14 @@ PageID BPlusTree::FindLeafPage(KeyType key) {
     }
 }
 
-void BPlusTree::Search(KeyType key, std::vector<RecordRef> &result) {
+void BPlusTree::Search(KeyType key, std::vector<RecordRef> &result, uint32_t &page_fetch_count) {
     result.clear();
 
-    PageID leaf_page_id = FindLeafPage(key);
+    PageID leaf_page_id = FindLeafPageForSearch(key, page_fetch_count);
+    if (leaf_page_id == INVALID_PAGE_ID) {
+        return;
+    }
+
     Page *page = bpm_->FetchPage(leaf_page_id);
 
     auto *leaf =
@@ -57,13 +99,17 @@ void BPlusTree::Search(KeyType key, std::vector<RecordRef> &result) {
     bpm_->UnpinPage(leaf_page_id, false);
 }
 
-void BPlusTree::RangeSearch(KeyType low, KeyType high, std::vector<RecordRef> &result) {
+void BPlusTree::RangeSearch(KeyType low, KeyType high, std::vector<RecordRef> &result, uint32_t &page_fetch_count) {
     result.clear();
 
     // Step 1: find starting leaf
-    PageID leaf_page_id = FindLeafPage(low);
+    PageID leaf_page_id = FindLeafPageForSearch(low, page_fetch_count);
+    if (leaf_page_id == INVALID_PAGE_ID) {
+        return;
+    }
 
     while (leaf_page_id != INVALID_PAGE_ID) {
+        page_fetch_count++;
         Page *page = bpm_->FetchPage(leaf_page_id);
         auto *leaf =
             reinterpret_cast<BPlusTreeLeafPage *>(page->GetData());
@@ -99,17 +145,13 @@ void BPlusTree::RangeSearch(KeyType low, KeyType high, std::vector<RecordRef> &r
 }
 
 void BPlusTree::Insert(KeyType key, RecordRef value) {
-    PageID leaf_page_id = FindLeafPage(key);
+
+    PageID leaf_page_id = FindLeafPageForInsert(key);
     Page *page = bpm_->FetchPage(leaf_page_id);
     auto *leaf =
         reinterpret_cast<BPlusTreeLeafPage *>(page->GetData());
 
     InsertIntoLeaf(leaf, key, value);
-
-    if (leaf->header.key_count > BPLUS_TREE_LEAF_MAX_KEYS) {
-        PageID new_leaf = SplitLeaf(leaf_page_id);
-        // promoted key handled inside split
-    }
 
     PageID parent_id = leaf->header.parent_page_id;
     bpm_->UnpinPage(leaf_page_id, true);
@@ -354,16 +396,14 @@ PageID BPlusTree::SplitInternal(PageID internal_page_id) {
     }
 
     old->header.key_count = mid;
-    old->total_keys = 0;
-
     if (old->header.key_count > 0) {
         old->min_key = old->keys[0];
         old->max_key = old->keys[old->header.key_count - 1];
-        old->total_keys = old->header.key_count;
-        old->density = static_cast<float>(old->total_keys) / static_cast<float>(old->max_key - old->min_key + 1);
-    } else {
-        old->density = 0.0f;
     }
+
+    old->density =
+        static_cast<float>(old->total_keys) /
+        static_cast<float>(old->max_key - old->min_key + 1);
 
     bpm_->UnpinPage(internal_page_id, true);
     bpm_->UnpinPage(new_page_id, true);

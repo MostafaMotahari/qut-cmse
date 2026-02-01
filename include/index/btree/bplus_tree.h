@@ -46,17 +46,18 @@ public:
     BPlusTree(PageID root_page_id, IndexID index_id, BufferPoolManager *bpm);
 
     // exact match search
-    void Search(KeyType key, std::vector<RecordRef> &result);
+    void Search(KeyType key, std::vector<RecordRef> &result, uint32_t &page_fetch_count);
 
     // range match search
-    void RangeSearch(KeyType low, KeyType high, std::vector<RecordRef> &result);
+    void RangeSearch(KeyType low, KeyType high, std::vector<RecordRef> &result, uint32_t &page_fetch_count);
 
     // insert key
     void Insert(KeyType key, RecordRef value);
     PageID root_page_id_;
 
 private:
-    PageID FindLeafPage(KeyType key);
+    PageID FindLeafPageForSearch(KeyType key, uint32_t &fetch_count);
+    PageID FindLeafPageForInsert(KeyType key);
     PageID SplitLeaf(PageID leaf_page_id);
     PageID SplitInternal(PageID internal_page_id);
 
