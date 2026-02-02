@@ -14,6 +14,8 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/mousiol/Projects/qut-cmse/src/index/tire/trie.cpp" "CMakeFiles/cmse.dir/src/index/tire/trie.cpp.o" "gcc" "CMakeFiles/cmse.dir/src/index/tire/trie.cpp.o.d"
   "/home/mousiol/Projects/qut-cmse/src/main.cpp" "CMakeFiles/cmse.dir/src/main.cpp.o" "gcc" "CMakeFiles/cmse.dir/src/main.cpp.o.d"
   "/home/mousiol/Projects/qut-cmse/src/query/query_executor.cpp" "CMakeFiles/cmse.dir/src/query/query_executor.cpp.o" "gcc" "CMakeFiles/cmse.dir/src/query/query_executor.cpp.o.d"
+  "/home/mousiol/Projects/qut-cmse/src/query/query_parser.cpp" "CMakeFiles/cmse.dir/src/query/query_parser.cpp.o" "gcc" "CMakeFiles/cmse.dir/src/query/query_parser.cpp.o.d"
+  "/home/mousiol/Projects/qut-cmse/src/query/ref_reader.cpp" "CMakeFiles/cmse.dir/src/query/ref_reader.cpp.o" "gcc" "CMakeFiles/cmse.dir/src/query/ref_reader.cpp.o.d"
   "/home/mousiol/Projects/qut-cmse/src/storage/buffer_pool_manager.cpp" "CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o" "gcc" "CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o.d"
   "/home/mousiol/Projects/qut-cmse/src/storage/disk_manager.cpp" "CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o" "gcc" "CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o.d"
   "/home/mousiol/Projects/qut-cmse/src/storage/lru_replacer.cpp" "CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o" "gcc" "CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o.d"

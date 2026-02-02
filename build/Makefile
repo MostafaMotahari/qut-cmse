@@ -273,6 +273,54 @@ src/query/query_executor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/src/query/query_executor.cpp.s
 .PHONY : src/query/query_executor.cpp.s
 
+src/query/query_parser.o: src/query/query_parser.cpp.o
+.PHONY : src/query/query_parser.o
+
+# target to build an object file
+src/query/query_parser.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/src/query/query_parser.cpp.o
+.PHONY : src/query/query_parser.cpp.o
+
+src/query/query_parser.i: src/query/query_parser.cpp.i
+.PHONY : src/query/query_parser.i
+
+# target to preprocess a source file
+src/query/query_parser.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/src/query/query_parser.cpp.i
+.PHONY : src/query/query_parser.cpp.i
+
+src/query/query_parser.s: src/query/query_parser.cpp.s
+.PHONY : src/query/query_parser.s
+
+# target to generate assembly for a file
+src/query/query_parser.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/src/query/query_parser.cpp.s
+.PHONY : src/query/query_parser.cpp.s
+
+src/query/ref_reader.o: src/query/ref_reader.cpp.o
+.PHONY : src/query/ref_reader.o
+
+# target to build an object file
+src/query/ref_reader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/src/query/ref_reader.cpp.o
+.PHONY : src/query/ref_reader.cpp.o
+
+src/query/ref_reader.i: src/query/ref_reader.cpp.i
+.PHONY : src/query/ref_reader.i
+
+# target to preprocess a source file
+src/query/ref_reader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/src/query/ref_reader.cpp.i
+.PHONY : src/query/ref_reader.cpp.i
+
+src/query/ref_reader.s: src/query/ref_reader.cpp.s
+.PHONY : src/query/ref_reader.s
+
+# target to generate assembly for a file
+src/query/ref_reader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cmse.dir/build.make CMakeFiles/cmse.dir/src/query/ref_reader.cpp.s
+.PHONY : src/query/ref_reader.cpp.s
+
 src/storage/buffer_pool_manager.o: src/storage/buffer_pool_manager.cpp.o
 .PHONY : src/storage/buffer_pool_manager.o
 
@@ -372,6 +420,12 @@ help:
 	@echo "... src/query/query_executor.o"
 	@echo "... src/query/query_executor.i"
 	@echo "... src/query/query_executor.s"
+	@echo "... src/query/query_parser.o"
+	@echo "... src/query/query_parser.i"
+	@echo "... src/query/query_parser.s"
+	@echo "... src/query/ref_reader.o"
+	@echo "... src/query/ref_reader.i"
+	@echo "... src/query/ref_reader.s"
 	@echo "... src/storage/buffer_pool_manager.o"
 	@echo "... src/storage/buffer_pool_manager.i"
 	@echo "... src/storage/buffer_pool_manager.s"

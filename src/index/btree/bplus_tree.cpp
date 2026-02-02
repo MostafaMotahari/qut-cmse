@@ -4,8 +4,8 @@
 
 namespace cmse {
 
-BPlusTree::BPlusTree(PageID root_page_id, IndexID index_id, BufferPoolManager *bpm)
-    : root_page_id_(root_page_id), bpm_(bpm), index_id_(index_id) {}
+BPlusTree::BPlusTree(PageID root_page_id, IndexID index_id, IndexCatalog *catalog, BufferPoolManager *bpm)
+    : root_page_id_(root_page_id), bpm_(bpm), index_id_(index_id), catalog_(catalog) {}
 
 PageID BPlusTree::FindLeafPageForSearch(KeyType key, uint32_t &fetch_count) {
     PageID current_page_id = root_page_id_;
@@ -278,18 +278,7 @@ void BPlusTree::InsertIntoParent(PageID left, KeyType key, PageID right) {
         root_page_id_ = new_root_id;
 
         // Persist new root in metadata
-        Page *meta_page = bpm_->FetchPage(0);
-        IndexMetaPage *meta =
-            reinterpret_cast<IndexMetaPage *>(meta_page->GetData());
-
-        for (uint32_t i = 0; i < meta->index_count; i++) {
-            if (meta->entries[i].index_id == index_id_) {
-                meta->entries[i].root_page_id = new_root_id;
-                break;
-            }
-        }
-
-        bpm_->UnpinPage(0, true);
+        catalog_->SetRoot(index_id_, root_page_id_);
 
         bpm_->UnpinPage(right, true);
         bpm_->UnpinPage(new_root_id, true);

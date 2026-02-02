@@ -12,10 +12,6 @@ inline uint32_t CharToIndex(char c) {
     return static_cast<uint32_t>(c) - TRIE_MIN_CHAR;
 }
 
-struct RecordRef {
-    uint64_t offset;   // byte offset in the log file
-};
-
 struct TrieNodePage {
     // children[i] == INVALID_PAGE_ID means no edge
     PageID children[TRIE_ALPHABET_SIZE];

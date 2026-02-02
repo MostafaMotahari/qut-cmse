@@ -12,4 +12,8 @@ using FrameID = uint32_t;
 using KeyType = uint64_t;
 using IndexID = uint32_t;
 
+struct RecordRef {
+    uint64_t offset;   // byte offset in the log file
+};
+
 } // namespace cmse

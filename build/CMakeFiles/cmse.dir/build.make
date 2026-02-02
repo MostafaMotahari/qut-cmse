@@ -156,10 +156,38 @@ CMakeFiles/cmse.dir/src/query/query_executor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cmse.dir/src/query/query_executor.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mousiol/Projects/qut-cmse/src/query/query_executor.cpp -o CMakeFiles/cmse.dir/src/query/query_executor.cpp.s
 
+CMakeFiles/cmse.dir/src/query/query_parser.cpp.o: CMakeFiles/cmse.dir/flags.make
+CMakeFiles/cmse.dir/src/query/query_parser.cpp.o: /home/mousiol/Projects/qut-cmse/src/query/query_parser.cpp
+CMakeFiles/cmse.dir/src/query/query_parser.cpp.o: CMakeFiles/cmse.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/cmse.dir/src/query/query_parser.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmse.dir/src/query/query_parser.cpp.o -MF CMakeFiles/cmse.dir/src/query/query_parser.cpp.o.d -o CMakeFiles/cmse.dir/src/query/query_parser.cpp.o -c /home/mousiol/Projects/qut-cmse/src/query/query_parser.cpp
+
+CMakeFiles/cmse.dir/src/query/query_parser.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cmse.dir/src/query/query_parser.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mousiol/Projects/qut-cmse/src/query/query_parser.cpp > CMakeFiles/cmse.dir/src/query/query_parser.cpp.i
+
+CMakeFiles/cmse.dir/src/query/query_parser.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cmse.dir/src/query/query_parser.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mousiol/Projects/qut-cmse/src/query/query_parser.cpp -o CMakeFiles/cmse.dir/src/query/query_parser.cpp.s
+
+CMakeFiles/cmse.dir/src/query/ref_reader.cpp.o: CMakeFiles/cmse.dir/flags.make
+CMakeFiles/cmse.dir/src/query/ref_reader.cpp.o: /home/mousiol/Projects/qut-cmse/src/query/ref_reader.cpp
+CMakeFiles/cmse.dir/src/query/ref_reader.cpp.o: CMakeFiles/cmse.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/cmse.dir/src/query/ref_reader.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmse.dir/src/query/ref_reader.cpp.o -MF CMakeFiles/cmse.dir/src/query/ref_reader.cpp.o.d -o CMakeFiles/cmse.dir/src/query/ref_reader.cpp.o -c /home/mousiol/Projects/qut-cmse/src/query/ref_reader.cpp
+
+CMakeFiles/cmse.dir/src/query/ref_reader.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cmse.dir/src/query/ref_reader.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mousiol/Projects/qut-cmse/src/query/ref_reader.cpp > CMakeFiles/cmse.dir/src/query/ref_reader.cpp.i
+
+CMakeFiles/cmse.dir/src/query/ref_reader.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cmse.dir/src/query/ref_reader.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mousiol/Projects/qut-cmse/src/query/ref_reader.cpp -o CMakeFiles/cmse.dir/src/query/ref_reader.cpp.s
+
 CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o: CMakeFiles/cmse.dir/flags.make
 CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o: /home/mousiol/Projects/qut-cmse/src/storage/buffer_pool_manager.cpp
 CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o: CMakeFiles/cmse.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o -MF CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o.d -o CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o -c /home/mousiol/Projects/qut-cmse/src/storage/buffer_pool_manager.cpp
 
 CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.i: cmake_force
@@ -173,7 +201,7 @@ CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.s: cmake_force
 CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o: CMakeFiles/cmse.dir/flags.make
 CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o: /home/mousiol/Projects/qut-cmse/src/storage/disk_manager.cpp
 CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o: CMakeFiles/cmse.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o -MF CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o.d -o CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o -c /home/mousiol/Projects/qut-cmse/src/storage/disk_manager.cpp
 
 CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.i: cmake_force
@@ -187,7 +215,7 @@ CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.s: cmake_force
 CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o: CMakeFiles/cmse.dir/flags.make
 CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o: /home/mousiol/Projects/qut-cmse/src/storage/lru_replacer.cpp
 CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o: CMakeFiles/cmse.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o -MF CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o.d -o CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o -c /home/mousiol/Projects/qut-cmse/src/storage/lru_replacer.cpp
 
 CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.i: cmake_force
@@ -206,6 +234,8 @@ cmse_OBJECTS = \
 "CMakeFiles/cmse.dir/src/index/tire/trie.cpp.o" \
 "CMakeFiles/cmse.dir/src/main.cpp.o" \
 "CMakeFiles/cmse.dir/src/query/query_executor.cpp.o" \
+"CMakeFiles/cmse.dir/src/query/query_parser.cpp.o" \
+"CMakeFiles/cmse.dir/src/query/ref_reader.cpp.o" \
 "CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o" \
 "CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o" \
 "CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o"
@@ -219,13 +249,15 @@ cmse: CMakeFiles/cmse.dir/src/index/index_catalog.cpp.o
 cmse: CMakeFiles/cmse.dir/src/index/tire/trie.cpp.o
 cmse: CMakeFiles/cmse.dir/src/main.cpp.o
 cmse: CMakeFiles/cmse.dir/src/query/query_executor.cpp.o
+cmse: CMakeFiles/cmse.dir/src/query/query_parser.cpp.o
+cmse: CMakeFiles/cmse.dir/src/query/ref_reader.cpp.o
 cmse: CMakeFiles/cmse.dir/src/storage/buffer_pool_manager.cpp.o
 cmse: CMakeFiles/cmse.dir/src/storage/disk_manager.cpp.o
 cmse: CMakeFiles/cmse.dir/src/storage/lru_replacer.cpp.o
 cmse: CMakeFiles/cmse.dir/build.make
 cmse: CMakeFiles/cmse.dir/compiler_depend.ts
 cmse: CMakeFiles/cmse.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable cmse"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/mousiol/Projects/qut-cmse/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable cmse"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cmse.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

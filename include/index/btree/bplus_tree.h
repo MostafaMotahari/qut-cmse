@@ -4,14 +4,11 @@
 #include "../../common/types.h"
 #include "../../common/constants.h"
 #include "../../storage/buffer_pool_manager.h"
+#include "../../index/index_catalog.h"
 
 namespace cmse {
 
 using KeyType = uint64_t;
-
-struct RecordRef {
-    uint64_t offset;   // byte offset in the log file
-};
 
 struct BPlusTreePageHeader {
     bool is_leaf;
@@ -43,7 +40,7 @@ struct BPlusTreeInternalPage {
 
 class BPlusTree {
 public:
-    BPlusTree(PageID root_page_id, IndexID index_id, BufferPoolManager *bpm);
+    BPlusTree(PageID root_page_id, IndexID index_id, IndexCatalog *catalog, BufferPoolManager *bpm);
 
     // exact match search
     void Search(KeyType key, std::vector<RecordRef> &result, uint32_t &page_fetch_count);
@@ -68,6 +65,7 @@ private:
 
     BufferPoolManager *bpm_;
     IndexID index_id_;
+    IndexCatalog *catalog_;
 };
 
 } // namespace cmse

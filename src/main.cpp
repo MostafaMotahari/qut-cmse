@@ -13,17 +13,8 @@ int main() {
     BufferPoolManager bpm(50); // small pool to force eviction
 
     // Fetch metadata page (page 0)
-    PageID meta_page_id;
-    Page *meta_page = bpm.NewPage(&meta_page_id);
 
-    std::cout<<"Allocating meta page "<<meta_page_id<<std::endl;
-
-    // First-time initialization
-    auto *meta =
-        reinterpret_cast<IndexMetaPage *>(meta_page->GetData());
-    meta->index_count = 0;
-
-    IndexCatalog catalog(meta_page);
+    IndexCatalog catalog(&bpm);
 
     // Create root leaf
     PageID trie_root_id;
