@@ -4,66 +4,11 @@
 
 #include "../include/storage/buffer_pool_manager.h"
 #include "../include/index/index_catalog.h"
-#include "../include/index/btree/bplus_tree.h"
+#include "../include/index/trie/trie.h"
 
 using namespace cmse;
 
 int main() {
-
-    // BufferPoolManager bpm(50); // small pool to force eviction
-
-    // // Fetch metadata page (page 0)
-    // Page *meta_page = bpm.FetchPage(0);
-
-    // // First-time initialization
-    // auto *meta =
-    //     reinterpret_cast<IndexMetaPage *>(meta_page->GetData());
-
-    // IndexCatalog catalog(meta_page);
-
-    // // Create root leaf
-
-    // const IndexID TEST_INDEX_ID = 1;
-    // PageID root_page_id = catalog.GetRoot(TEST_INDEX_ID);
-
-    // if (root_page_id == INVALID_PAGE_ID) {
-    //     std::cerr << "ERROR: index not found\n";
-    //     return 1;
-    // }
-
-    // BPlusTree tree(root_page_id, TEST_INDEX_ID, &bpm);
-
-
-    // std::cout << "\nTesting exact search...\n";
-
-    // for (int k = 0; k < 10; k++) {
-    //     KeyType test_key = k * 100;
-
-    //     std::vector<RecordRef> results;
-    //     tree.Search(test_key, results);
-
-    //     std::cout << "Key " << test_key
-    //               << " → " << results.size()
-    //               << " records\n";
-    // }
-
-    // std::cout << "\nTesting range search...\n";
-
-    // KeyType low = 1000;
-    // KeyType high = 1100;
-
-    // std::vector<RecordRef> range_results;
-    // tree.RangeSearch(low, high, range_results);
-
-    // std::cout << "Range [" << low << ", " << high << "] → "
-    //           << range_results.size() << " records\n";
-
-    // bpm.FlushAllPages();
-
-    // std::cout << "\nTest finished successfully.\n";
-    // return 0;
-
-    // =================================================================
 
     BufferPoolManager bpm(50); // small pool to force eviction
 
@@ -81,103 +26,64 @@ int main() {
     IndexCatalog catalog(meta_page);
 
     // Create root leaf
-    PageID root_page_id;
-    Page *root_page = bpm.NewPage(&root_page_id);
+    PageID trie_root_id;
+    Page *root_page = bpm.NewPage(&trie_root_id);
 
-    auto *root_leaf =
-        reinterpret_cast<BPlusTreeLeafPage *>(root_page->GetData());
+    auto *root =
+        reinterpret_cast<TrieNodePage *>(root_page->GetData());
 
-    root_leaf->header.is_leaf = true;
-    root_leaf->header.key_count = 0;
-    root_leaf->header.parent_page_id = INVALID_PAGE_ID;
-    root_leaf->next_leaf_page_id = INVALID_PAGE_ID;
+    for (uint32_t i = 0; i < TRIE_ALPHABET_SIZE; i++) {
+        root->children[i] = INVALID_PAGE_ID;
+    }
 
-    // Register index (index_id = 1)
-    const IndexID TEST_INDEX_ID = 1;
-    catalog.SetRoot(TEST_INDEX_ID, root_page_id);
+    root->is_terminal = false;
+    root->record_count = 0;
 
-    bpm.UnpinPage(root_page_id, true);
-    bpm.UnpinPage(0, true); // metadata dirty
+    const IndexID TRIE_INDEX_ID = 2;
 
-    BPlusTree tree(root_page_id, TEST_INDEX_ID, &bpm);
+    catalog.SetRoot(TRIE_INDEX_ID, trie_root_id);
+
+    bpm.UnpinPage(trie_root_id, true);
+    bpm.UnpinPage(0, true); // meta dirty
+
+    TrieIndex trie(trie_root_id, &bpm);
+
+    std::vector<std::string> samples = {
+        "MESSAGE=pam_unix(cron:session): session opened for user root(uid=0)",
+        "MESSAGE=pam_unix(cron:session): session closed for user root",
+        "ERROR=disk_failure device=sda1 sector=991823",
+        "INFO=systemd started service sshd",
+    };
+
+    const int N = 10000;
 
     std::cout << "Inserting keys...\n";
 
-    const int N = 10000;
-    std::srand(42);
-
     for (int i = 0; i < N; i++) {
-        KeyType key = std::rand() % 5000;  // duplicates allowed
-        RecordRef ref{static_cast<uint64_t>(i * 100)};
-
-        // if (catalog.GetRoot(TEST_INDEX_ID) > 3) {
-        //     std::cout<<i<<std::endl;
-        //     break;
-        // }
-        // std::cout<<catalog.GetRoot(TEST_INDEX_ID)<<std::endl;
-        tree.Insert(key, ref);
+        std::string s = samples[i % samples.size()];
+        RecordRef ref{static_cast<uint64_t>(i * 128)};
+        // std::cout<<"Hey"<<std::endl;
+        trie.Insert(s, ref);
     }
 
     std::cout << "Insertion done.\n";
 
-    std::cout << "Some examples of statistics done.\n";
+    std::vector<RecordRef> results;
+
+    trie.ExactSearch(
+        "MESSAGE=pam_unix(cron:session): session opened for user root(uid=0)",
+        results
+    );
+
+    std::cout << "Exact results: " << results.size() << "\n";
 
 
-    Page *meta_page2 = bpm.FetchPage(meta_page_id);
+    results.clear();
 
-    std::cout<<"Allocating meta page "<<meta_page_id<<std::endl;
+    trie.PrefixSearch("MESSAGE=pam_unix", results);
 
-    // First-time initialization
+    std::cout << "Prefix results: " << results.size() << "\n";
 
-    IndexCatalog catalog_bav(meta_page2);
-
-    Page *page_root = bpm.FetchPage(catalog_bav.GetRoot(TEST_INDEX_ID));
-    auto *header =
-        reinterpret_cast<BPlusTreePageHeader *>(page_root->GetData());
-
-    if (!header->is_leaf) {
-        auto *root_internal =
-            reinterpret_cast<BPlusTreeInternalPage *>(page_root->GetData());
-
-        std::cout << "Root stats: min="
-          << root_internal->min_key
-          << " max=" << root_internal->max_key
-          << " total=" << root_internal->total_keys
-          << " page_id=" << catalog_bav.GetRoot(TEST_INDEX_ID)
-          << " density=" << root_internal->density
-          << "\n";
-    } else {
-        std::cout << "Root is still a leaf; no internal stats yet.\n";
-    }
-
-    std::cout << "\nTesting exact search...\n";
-
-    for (int k = 0; k < 10; k++) {
-        KeyType test_key = k * 100;
-        uint32_t fetch_count = 0;
-
-        std::vector<RecordRef> results;
-        tree.Search(test_key, results, fetch_count);
-
-        std::cout << "Key " << test_key
-                  << " → " << results.size()
-                  << " records"
-                  << " | " << fetch_count
-                  << " page fetches\n";
-    }
-
-    std::cout << "\nTesting range search...\n";
-
-    KeyType low = 1000;
-    KeyType high = 1100;
-    uint32_t fetch_count = 0;
-
-    std::vector<RecordRef> range_results;
-    tree.RangeSearch(low, high, range_results, fetch_count);
-
-    std::cout << "Range [" << low << ", " << high << "] → "
-              << range_results.size() << " records | "
-              << fetch_count << " page fetches\n";
 
     bpm.FlushAllPages();
 

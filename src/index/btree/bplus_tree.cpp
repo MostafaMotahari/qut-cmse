@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "../../../include/index/index_meta_page.h"
 #include "../../../include/index/btree/bplus_tree.h"
 #include "../../../include/storage/buffer_pool_manager.h"

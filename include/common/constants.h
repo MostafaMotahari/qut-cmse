@@ -33,4 +33,13 @@ constexpr uint32_t MAX_INDEXES = 16;
 constexpr size_t BPLUS_TREE_LEAF_MAX_KEYS = 254;
 constexpr size_t BPLUS_TREE_INTERNAL_MAX_KEYS = 254;
 
+// ================================
+// Trie limitations
+// ================================
+//
+constexpr uint32_t TRIE_MIN_CHAR = 32;
+constexpr uint32_t TRIE_MAX_CHAR = 126;
+constexpr uint32_t TRIE_ALPHABET_SIZE = 95;
+constexpr uint32_t TRIE_MAX_RECORDS = 32;
+
 } // namespace cmse
